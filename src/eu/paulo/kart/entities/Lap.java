@@ -16,6 +16,13 @@ public class Lap {
 
     private double avgSpeed;
 
+    public Lap(int number, LocalTime hour, Duration time, double avgSpeed) {
+        this.number = number;
+        this.hour = hour;
+        this.time = time;
+        this.avgSpeed = avgSpeed;
+    }
+
     public int getNumber() {
         return number;
     }

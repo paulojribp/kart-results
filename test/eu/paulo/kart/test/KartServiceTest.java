@@ -24,7 +24,7 @@ public class KartServiceTest {
     private static List<LapParser> laps = new ArrayList<>();
 
     @BeforeAll
-    public static void setUp() throws IOException {
+    public static void setUp() {
         laps = fileController.getLapsFrom("kart-results.txt");
     }
 
@@ -42,7 +42,7 @@ public class KartServiceTest {
     }
 
     @Test
-    public void shouldGetOrderedPilotsWithLessLaps() throws IOException {
+    public void shouldGetOrderedPilotsWithLessLaps() {
         List<LapParser> laps = LapParserGenerator.getRaceWithLessLaps();
         List<Pilot> pilots = kartService.getPilotsLaps(laps);
         pilots = kartService.sortPilotsByPosition(pilots);

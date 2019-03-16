@@ -72,13 +72,7 @@ public class LapParser {
     }
 
     public Lap parseToLap() {
-        Lap lap = new Lap();
-        lap.setNumber( this.number );
-        lap.setHour( this.hour );
-        lap.setTime( this.time );
-        lap.setAvgSpeed( this.avgSpeed );
-
-        return lap;
+        return new Lap(this.number, this.hour, this.time, this.avgSpeed);
     }
 
     public LocalTime getHour() {
