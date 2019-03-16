@@ -2,7 +2,7 @@ package eu.paulo.kart.test;
 
 import eu.paulo.kart.FileController;
 import eu.paulo.kart.entities.Pilot;
-import eu.paulo.kart.wrappers.LapWrapper;
+import eu.paulo.kart.wrappers.LapParser;
 import eu.paulo.kart.entities.Race;
 import eu.paulo.kart.services.KartService;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,7 +20,7 @@ public class KartServiceTest {
     KartService kartService = new KartService();
     static FileController fileController = new FileController();
 
-    private static List<LapWrapper> laps = new ArrayList<>();
+    private static List<LapParser> laps = new ArrayList<>();
 
     @BeforeAll
     public static void setUp() throws IOException {

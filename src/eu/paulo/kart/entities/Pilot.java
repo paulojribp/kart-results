@@ -61,6 +61,8 @@ public class Pilot implements Comparable {
         return "Pilot{" +
                 "number=" + number +
                 ", name='" + name + '\'' +
+                ", position=" + position +
+                ", totalRaceTime=" + totalRaceTime +
                 ", laps=" + laps +
                 '}';
     }

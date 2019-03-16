@@ -1,47 +1,51 @@
 package eu.paulo.kart.services;
 
 import eu.paulo.kart.entities.Lap;
-import eu.paulo.kart.wrappers.LapWrapper;
+import eu.paulo.kart.wrappers.LapParser;
 import eu.paulo.kart.entities.Pilot;
 import eu.paulo.kart.entities.Race;
 
 import java.time.Duration;
-import java.time.LocalTime;
-import java.time.temporal.*;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class KartService {
 
-    public Race compileRaceInfo(List<LapWrapper> laps) {
+    public Race compileRaceInfo(List<LapParser> laps) {
         Race race = new Race();
-        Set<Pilot> pilots = getPilotsLaps(laps);
+        List<Pilot> pilots = getPilotsLaps(laps);
         race.setPilots(sortPilotsByPosition(pilots));
-
-
-
 
         return race;
     }
 
-    public Set<Pilot> sortPilotsByPosition(Set<Pilot> pilots) {
-        TreeSet<Pilot> sortedPilots = new TreeSet<>();
-        pilots.forEach(p -> sortedPilots.add(p));
+    public List<Pilot> sortPilotsByPosition(List<Pilot> pilots) {
+        SortedSet<Pilot> sortedPilots = new TreeSet<>();
+        int maxLaps = 0;
+        for (Pilot p : pilots) {
+            sortedPilots.add(p);
+            maxLaps = p.getLaps().size() > maxLaps ? p.getLaps().size() : maxLaps;
+        }
+        final Integer finalTotalLaps = maxLaps;
 
-        return sortedPilots;
+        TreeSet<Pilot> firsts = sortedPilots.stream().filter(p -> finalTotalLaps.equals(p.getLaps().size())).collect(Collectors.toCollection(TreeSet::new));
+        TreeSet<Pilot> lasts = sortedPilots.stream().filter(p -> (p.getLaps().size() < finalTotalLaps)).collect(Collectors.toCollection(TreeSet::new));
+
+        return Stream.concat(firsts.stream(), lasts.stream()).collect(Collectors.toList());
     }
 
-    public Set<Pilot> getPilotsLaps(List<LapWrapper> laps) {
-        Set<Pilot> pilots = getPilotsFrom(laps);
+    public List<Pilot> getPilotsLaps(List<LapParser> laps) {
+        List<Pilot> pilots = getPilotsFrom(laps);
 
         for (Pilot p : pilots) {
             Duration totalRaceTime = Duration.ZERO;
             List<Lap> raceLaps = new ArrayList<>();
-            List<LapWrapper> pilotLaps = laps.stream().filter(l -> p.equals(l.getPilot())).collect(Collectors.toList());
-            for (LapWrapper pl : pilotLaps) {
+            List<LapParser> pilotLaps = laps.stream().filter(l -> p.equals(l.getPilot())).collect(Collectors.toList());
+            for (LapParser pl : pilotLaps) {
                 totalRaceTime = totalRaceTime.plus(pl.getTime());
 
-                raceLaps.add(new Lap(pl));
+                raceLaps.add(pl.parseToLap());
             }
             System.out.println("Pilot: " + p.getNumber() + " - " + p.getName() + " || Total Lap Time: " + totalRaceTime.toString());
             p.setTotalRaceTime(totalRaceTime);
@@ -51,7 +55,7 @@ public class KartService {
         return pilots;
     }
 
-    public Set<Pilot> getPilotsFrom(List<LapWrapper> laps) {
-        return laps.stream().map(p -> p.getPilot()).distinct().collect(Collectors.toCollection(HashSet::new));
+    public List<Pilot> getPilotsFrom(List<LapParser> laps) {
+        return laps.stream().map(p -> p.getPilot()).distinct().collect(Collectors.toList());
     }
 }

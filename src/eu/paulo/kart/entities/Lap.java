@@ -1,6 +1,6 @@
 package eu.paulo.kart.entities;
 
-import eu.paulo.kart.wrappers.LapWrapper;
+import eu.paulo.kart.wrappers.LapParser;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -15,15 +15,6 @@ public class Lap {
     private Duration time;
 
     private double avgSpeed;
-
-    public Lap() { }
-
-    public Lap(LapWrapper lapWrapper) {
-        this.number = lapWrapper.getNumber();
-        this.hour = lapWrapper.getHour();
-        this.time = lapWrapper.getTime();
-        this.avgSpeed = lapWrapper.getAverageSpeed();
-    }
 
     public int getNumber() {
         return number;

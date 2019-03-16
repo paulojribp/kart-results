@@ -1,6 +1,6 @@
 package eu.paulo.kart;
 
-import eu.paulo.kart.wrappers.LapWrapper;
+import eu.paulo.kart.wrappers.LapParser;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,7 +11,7 @@ public class Main {
 
         FileController fileController = new FileController();
         try {
-            List<LapWrapper> laps = fileController.getLapsFrom("file.txt");
+            List<LapParser> laps = fileController.getLapsFrom("file.txt");
 
         } catch (IOException e) {
             e.printStackTrace();

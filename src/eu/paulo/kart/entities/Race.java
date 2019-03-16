@@ -1,21 +1,21 @@
 package eu.paulo.kart.entities;
 
-import java.util.Set;
+import java.util.List;
 
 public class Race {
 
     private int totalLaps;
-    private Set<Pilot> pilots;
+    private List<Pilot> pilots;
 
     public int getTotalLaps() {
         return this.totalLaps;
     }
 
-    public Set<Pilot> getPilots() {
+    public List<Pilot> getPilots() {
         return pilots;
     }
 
-    public void setPilots(Set<Pilot> pilots) {
+    public void setPilots(List<Pilot> pilots) {
         this.pilots = pilots;
     }
 
