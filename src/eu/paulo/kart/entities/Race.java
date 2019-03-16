@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Race {
 
+    public static final int LAST_POSITION = 40;
     private int totalLaps;
     private List<Pilot> pilots;
 

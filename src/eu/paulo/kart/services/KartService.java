@@ -32,7 +32,18 @@ public class KartService {
         TreeSet<Pilot> firsts = sortedPilots.stream().filter(p -> finalTotalLaps.equals(p.getLaps().size())).collect(Collectors.toCollection(TreeSet::new));
         TreeSet<Pilot> lasts = sortedPilots.stream().filter(p -> (p.getLaps().size() < finalTotalLaps)).collect(Collectors.toCollection(TreeSet::new));
 
-        return Stream.concat(firsts.stream(), lasts.stream()).collect(Collectors.toList());
+        pilots = Stream.concat(firsts.stream(), lasts.stream()).collect(Collectors.toList());
+        int position = 1;
+        for (Pilot p : pilots) {
+            if (p.getLaps().size() == finalTotalLaps) {
+                p.setPosition(position);
+                position++;
+            } else {
+                p.setPosition(Race.LAST_POSITION);
+            }
+        }
+
+        return pilots;
     }
 
     public List<Pilot> getPilotsLaps(List<LapParser> laps) {
@@ -47,7 +58,7 @@ public class KartService {
 
                 raceLaps.add(pl.parseToLap());
             }
-            System.out.println("Pilot: " + p.getNumber() + " - " + p.getName() + " || Total Lap Time: " + totalRaceTime.toString());
+
             p.setTotalRaceTime(totalRaceTime);
             p.setLaps(raceLaps);
         }

@@ -23,43 +23,49 @@ public class LapParser {
     private double avgSpeed;
 
     public LapParser(String line) {
-        parseLineToHour(line);
-        parsePilot(line);
-        parseLapNumber(line);
-        parseTime(line);
-        parseAvgSpeed(line);
+        parseLineToHour(line.substring(0, 17).trim());
+        parsePilot(line.substring(18,21), line.substring(24,58).trim());
+        parseLapNumber(line.substring(58,60).trim());
+        parseTime(line.substring(64, 72));
+        parseAvgSpeed(line.substring(84));
+    }
+    public LapParser(String hour, String pilotNumber, String pilotName, String lapNumber, String time, String avgSpeed) {
+        parseLineToHour(hour);
+        parsePilot(pilotNumber, pilotName);
+        parseLapNumber(lapNumber);
+        parseTime(time);
+        parseAvgSpeed(avgSpeed);
     }
 
-    public void parseLineToHour(String line) {
-        LocalTime kartHour = LocalTime.parse(line.substring(0, 17).trim());
+    public void parseLineToHour(String hourString) {
+        LocalTime kartHour = LocalTime.parse(hourString);
         this.hour = kartHour;
     }
 
-    public void parsePilot(String line) {
-        String numberString = line.substring(18,21);
+    public void parsePilot(String numberString, String nameString) {
         this.pilot = new Pilot(
                 numberString != null ? Integer.parseInt(numberString.trim()) : 0,
-                line.substring(24,58).trim()
+                nameString
         );
     }
 
-    public void parseLapNumber(String line) {
-        this.number = Integer.parseInt(line.substring(58,60).trim());
+    public void parseLapNumber(String lapNumberString) {
+        this.number = Integer.parseInt(lapNumberString);
     }
 
-    public void parseTime(String line) {
-        String minutes = line.substring(64, 65);
-        String seconds = line.substring(66, 72);
+    public void parseTime(String timeString) {
+        String minutes = timeString.substring(0, 1);
+        String seconds = timeString.substring(2, 8);
         this.time = Duration.parse("PT"+minutes+"M"+seconds+"S");
     }
 
-    public void parseAvgSpeed(String line) {
+    public void parseAvgSpeed(String avgSpeedString) {
         try {
             DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.getDefault());
             otherSymbols.setDecimalSeparator(',');
             otherSymbols.setGroupingSeparator('.');
             DecimalFormat df = new DecimalFormat("#,###,###,##0.00#", otherSymbols);
-            this.avgSpeed = Double.parseDouble(String.valueOf(df.parse(line.substring(84))));
+            this.avgSpeed = Double.parseDouble(String.valueOf(df.parse(avgSpeedString)));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
