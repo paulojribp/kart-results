@@ -6,9 +6,9 @@ import java.util.Objects;
 
 public class Pilot implements Comparable {
 
-    int number;
+    private int number;
 
-    String name;
+    private String name;
     private int position;
     private Duration totalRaceTime;
     private List<Lap> laps;
@@ -97,5 +97,12 @@ public class Pilot implements Comparable {
 
     public double getAvgSpeed() {
         return avgSpeed;
+    }
+
+    public int getAmountOfLaps() {
+        if (this.laps != null)
+            return this.laps.size();
+
+        return 0;
     }
 }

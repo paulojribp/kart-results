@@ -39,7 +39,7 @@ public class Main {
             Duration afterFirst = p.getTotalRaceTime().minus(firstPosRaceTime);
 
             out.printf("| #%-3s | %-2s - %-18s |        %-7s |     %s:%02d.%3.3s   |  +%04d.%3.3s |    %s:%02d.%3.3s   |     %3.3f  |%n",
-                    p.getPosition(), p.getNumber(), p.getName(), p.getLaps().size(),
+                    p.getPosition(), p.getNumber(), p.getName(), p.getAmountOfLaps(),
                     (p.getTotalRaceTime().getSeconds()/60), (p.getTotalRaceTime().getSeconds() % 60), p.getTotalRaceTime().getNano(),
                     afterFirst.getSeconds(), afterFirst.getNano(),
                     (p.getBestLap().getTime().getSeconds()/60), (p.getBestLap().getTime().getSeconds() % 60), p.getBestLap().getTime().getNano(),

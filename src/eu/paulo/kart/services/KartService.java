@@ -25,17 +25,17 @@ public class KartService {
         int maxLaps = 0;
         for (Pilot p : pilots) {
             pilotsSet.add(p);
-            maxLaps = p.getLaps().size() > maxLaps ? p.getLaps().size() : maxLaps;
+            maxLaps = p.getAmountOfLaps() > maxLaps ? p.getAmountOfLaps() : maxLaps;
         }
-        final Integer finalTotalLaps = maxLaps;
+        final int finalTotalLaps = maxLaps;
 
-        TreeSet<Pilot> firsts = pilotsSet.stream().filter(p -> finalTotalLaps.equals(p.getLaps().size())).collect(Collectors.toCollection(TreeSet::new));
-        TreeSet<Pilot> lasts = pilotsSet.stream().filter(p -> (p.getLaps().size() < finalTotalLaps)).collect(Collectors.toCollection(TreeSet::new));
+        TreeSet<Pilot> firsts = pilotsSet.stream().filter(p -> (finalTotalLaps == p.getAmountOfLaps())).collect(Collectors.toCollection(TreeSet::new));
+        TreeSet<Pilot> lasts = pilotsSet.stream().filter(p -> (p.getAmountOfLaps() < finalTotalLaps)).collect(Collectors.toCollection(TreeSet::new));
 
         List<Pilot> sortedPilots = Stream.concat(firsts.stream(), lasts.stream()).collect(Collectors.toList());
         int position = 1;
         for (Pilot p : sortedPilots) {
-            if (p.getLaps().size() == finalTotalLaps) {
+            if (p.getAmountOfLaps() == finalTotalLaps) {
                 p.setPosition(position);
                 position++;
             } else {
@@ -68,7 +68,6 @@ public class KartService {
 
     public Race calculateAdditionalRaceInfo(final Race race) {
         Duration bestRaceLap = Duration.parse("PT59M");
-        Duration firstPosRaceTime = Duration.ZERO;
 
         for (Pilot pilot : race.getPilots()) {
             Duration bestPilotLap = Duration.parse("PT59M");
@@ -87,7 +86,7 @@ public class KartService {
                     }
                 }
             }
-            avgRaceSpeed = avgRaceSpeed / pilot.getLaps().size();
+            avgRaceSpeed = avgRaceSpeed / pilot.getAmountOfLaps();
             pilot.setAvgSpeed(avgRaceSpeed);
         }
 
