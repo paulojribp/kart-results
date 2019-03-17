@@ -1,8 +1,6 @@
 package eu.paulo.kart.entities;
 
 import java.time.Duration;
-import java.time.LocalTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +12,8 @@ public class Pilot implements Comparable {
     private int position;
     private Duration totalRaceTime;
     private List<Lap> laps;
+    private Lap bestLap;
+    private double avgSpeed;
 
     public Pilot(int number, String name) {
         this.number = number;
@@ -24,16 +24,8 @@ public class Pilot implements Comparable {
         return number;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getPosition() {
@@ -52,19 +44,14 @@ public class Pilot implements Comparable {
         this.totalRaceTime = totalRaceTime;
     }
 
-    private Duration getTotalRaceTime() {
+    public Duration getTotalRaceTime() {
         return this.totalRaceTime;
     }
 
     @Override
     public String toString() {
-        return "Pilot{" +
-                "number=" + number +
-                ", name='" + name + '\'' +
-                ", position=" + position +
-                ", totalRaceTime=" + totalRaceTime +
-                ", laps=" + laps +
-                '}';
+        return "| #" + position + " | " + number + " - " + name + " | " + laps.size() + " | " + (totalRaceTime.getSeconds() / 60) + ":"
+                + (totalRaceTime.getSeconds() % 60) + "." + totalRaceTime.getNano() + " |";
     }
 
     @Override
@@ -96,4 +83,19 @@ public class Pilot implements Comparable {
         return 0;
     }
 
+    public void setBestLap(Lap bestLap) {
+        this.bestLap = bestLap;
+    }
+
+    public Lap getBestLap() {
+        return bestLap;
+    }
+
+    public void setAvgSpeed(double avgSpeed) {
+        this.avgSpeed = avgSpeed;
+    }
+
+    public double getAvgSpeed() {
+        return avgSpeed;
+    }
 }

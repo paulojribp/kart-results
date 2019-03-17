@@ -23,49 +23,49 @@ public class LapParser {
     private double avgSpeed;
 
     public LapParser(String line) {
-        parseLineToHour(line.substring(0, 17).trim());
-        parsePilot(line.substring(18,21), line.substring(24,58).trim());
-        parseLapNumber(line.substring(58,60).trim());
-        parseTime(line.substring(64, 72));
-        parseAvgSpeed(line.substring(84));
+        this.hour = parseLineToHour(line.substring(0, 17).trim());
+        this.pilot = parsePilot(line.substring(18,21), line.substring(24,58).trim());
+        this.number = parseLapNumber(line.substring(58,60).trim());
+        this.time = parseTime(line.substring(64, 72));
+        this.avgSpeed = parseAvgSpeed(line.substring(84));
     }
     public LapParser(String hour, String pilotNumber, String pilotName, String lapNumber, String time, String avgSpeed) {
-        parseLineToHour(hour);
-        parsePilot(pilotNumber, pilotName);
-        parseLapNumber(lapNumber);
-        parseTime(time);
-        parseAvgSpeed(avgSpeed);
+        this.hour = parseLineToHour(hour);
+        this.pilot = parsePilot(pilotNumber, pilotName);
+        this.number = parseLapNumber(lapNumber);
+        this.time = parseTime(time);
+        this.avgSpeed = parseAvgSpeed(avgSpeed);
     }
 
-    public void parseLineToHour(String hourString) {
+    public static LocalTime parseLineToHour(String hourString) {
         LocalTime kartHour = LocalTime.parse(hourString);
-        this.hour = kartHour;
+        return kartHour;
     }
 
-    public void parsePilot(String numberString, String nameString) {
-        this.pilot = new Pilot(
+    public static Pilot parsePilot(String numberString, String nameString) {
+        return new Pilot(
                 numberString != null ? Integer.parseInt(numberString.trim()) : 0,
                 nameString
         );
     }
 
-    public void parseLapNumber(String lapNumberString) {
-        this.number = Integer.parseInt(lapNumberString);
+    public static int parseLapNumber(String lapNumberString) {
+        return Integer.parseInt(lapNumberString);
     }
 
-    public void parseTime(String timeString) {
+    public static Duration parseTime(String timeString) {
         String minutes = timeString.substring(0, 1);
         String seconds = timeString.substring(2, 8);
-        this.time = Duration.parse("PT"+minutes+"M"+seconds+"S");
+        return Duration.parse("PT"+minutes+"M"+seconds+"S");
     }
 
-    public void parseAvgSpeed(String avgSpeedString) {
+    public static double parseAvgSpeed(String avgSpeedString) {
         try {
             DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.getDefault());
             otherSymbols.setDecimalSeparator(',');
             otherSymbols.setGroupingSeparator('.');
             DecimalFormat df = new DecimalFormat("#,###,###,##0.00#", otherSymbols);
-            this.avgSpeed = Double.parseDouble(String.valueOf(df.parse(avgSpeedString)));
+            return Double.parseDouble(String.valueOf(df.parse(avgSpeedString)));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

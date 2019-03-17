@@ -5,12 +5,8 @@ import java.util.List;
 public class Race {
 
     public static final int LAST_POSITION = 40;
-    private int totalLaps;
+    private Lap bestLap;
     private List<Pilot> pilots;
-
-    public int getTotalLaps() {
-        return this.totalLaps;
-    }
 
     public List<Pilot> getPilots() {
         return pilots;
@@ -20,10 +16,17 @@ public class Race {
         this.pilots = pilots;
     }
 
+    public Lap getBestLap() {
+        return this.bestLap;
+    }
+
+    public void setBestLap(Lap bestLap) {
+        this.bestLap = bestLap;
+    }
+
     @Override
     public String toString() {
         return "Race{" +
-                "totalLaps=" + totalLaps +
                 ", pilots=" + pilots +
                 '}';
     }

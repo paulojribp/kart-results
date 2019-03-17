@@ -9,6 +9,7 @@ import eu.paulo.kart.services.KartService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,5 +68,20 @@ public class KartServiceTest {
         assertEquals(Race.LAST_POSITION, sortedPilots.get(size - 1).getPosition());
         assertEquals(Race.LAST_POSITION, sortedPilots.get(size - 2).getPosition());
     }
+
+    @Test
+    public void shouldCalculateAdditionalRaceInfoSuccessful() {
+        Race race = kartService.calculateRaceInfo(laps);
+
+        Race raceDetailed = kartService.calculateAdditionalRaceInfo(race);
+
+        Duration bestRaceLap = LapParser.parseTime("1:02.769");
+        Duration bestRaikkonenLap = LapParser.parseTime("1:03.076");
+        Pilot raikkonen = raceDetailed.getPilots().get(1);
+
+        assertEquals(bestRaceLap, raceDetailed.getBestLap().getTime());
+        assertEquals(bestRaikkonenLap, raikkonen.getBestLap().getTime());
+    }
+
 
 }

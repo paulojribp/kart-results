@@ -66,4 +66,31 @@ public class KartService {
         return pilots;
     }
 
+    public Race calculateAdditionalRaceInfo(final Race race) {
+        Duration bestRaceLap = Duration.parse("PT59M");
+        Duration firstPosRaceTime = Duration.ZERO;
+
+        for (Pilot pilot : race.getPilots()) {
+            Duration bestPilotLap = Duration.parse("PT59M");
+            double avgRaceSpeed = 0;
+
+            for (Lap lap : pilot.getLaps()) {
+                avgRaceSpeed += lap.getAvgSpeed();
+
+                if (lap.getTime().compareTo(bestPilotLap) < 0) {
+                    pilot.setBestLap(lap);
+                    bestPilotLap = lap.getTime();
+
+                    if (lap.getTime().compareTo(bestRaceLap) < 0) {
+                        race.setBestLap(lap);
+                        bestRaceLap = lap.getTime();
+                    }
+                }
+            }
+            avgRaceSpeed = avgRaceSpeed / pilot.getLaps().size();
+            pilot.setAvgSpeed(avgRaceSpeed);
+        }
+
+        return race;
+    }
 }
