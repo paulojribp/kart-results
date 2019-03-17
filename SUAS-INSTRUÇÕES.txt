@@ -1,0 +1,29 @@
+CONSIDERAÇÕES NO DESENVOLVIMENTO DO PROJETO
+===========================================================
+
+Testes
+- A quantidade de testes não me agradou, tentei ver outros teste para fazer, no entanto não vi como eles agregariam mais valor.
+- Tentei criar massas genéricas em Java (LapParseResource), mas após ter feito uma, percebi que manter em arquivo seria melhor. Mantive o arquivo para avaliarem, porém é denecessário.
+- Não vi necessidade de Mockito, já que temos arquivos (ao invés de uma base ou serviço), o que facilita a "massa de dados".
+
+Desenvolvimento
+- No KarSevice, tentei fazer a maior parte da lógica separada. No entanto isso poderia gerar muito overhead. Ainda assim mantive 3 propósitos gerais.
+- Alguns métodos poderia ser melhorados com mais lambda e melhor legibilidade, mas chegou um ponto que a performance poderia ficar prejudicada. Adoro Lambda, mas hoje em dia tento pensar um pouco mais em performance, tentando não perder legibilidade nem para um nem para outro.
+
+Execução
+Maven:
+    mvn exec:java
+Main:
+    eu.paulo.kart.Main
+
+Resultado Esperado:
+-------------------------------------------------- RACE STATS -------------------------------------------------
+===============================================================================================================
+| POS  |          PILOT          | COMPLETED LAPS |   TOTAL TIME   |   AFTER #1 |    BEST LAP   |  AVG SPEED  |
+| #1   | 38 - F.MASSA            |        4       |     4:11.578   |  +0000.  0 |    1:02.769   |     44,246  |
+| #2   | 2  - K.RAIKKONEN        |        4       |     4:15.153   |  +0003.575 |    1:03.760   |     43,627  |
+| #3   | 33 - R.BARRICHELLO      |        4       |     4:16.800   |  +0004.502 |    1:03.716   |     43,468  |
+| #4   | 23 - M.WEBBER           |        4       |     4:17.722   |  +0006.144 |    1:04.216   |     43,191  |
+| #5   | 15 - F.ALONSO           |        4       |     4:54.221   |  +0042.643 |    1:07.110   |     38,066  |
+| #40  | 11 - S.VETTEL           |        3       |     6:27.276   |  +0135.698 |    1:18.970   |     25,746  |
+===============================================================================================================

@@ -1,4 +1,4 @@
-package eu.paulo.kart.test.generators;
+package test.java.test.generators;
 
 import eu.paulo.kart.parsers.LapParser;
 

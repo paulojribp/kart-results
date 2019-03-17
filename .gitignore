@@ -1,3 +1,4 @@
-kart-results.iml
+*.iml
 .idea/
 out/
+target/

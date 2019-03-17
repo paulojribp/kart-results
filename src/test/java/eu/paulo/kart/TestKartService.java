@@ -1,8 +1,8 @@
-package eu.paulo.kart.test;
+package eu.paulo.kart;
 
 import eu.paulo.kart.repository.KartRepository;
 import eu.paulo.kart.entities.Pilot;
-import eu.paulo.kart.test.generators.LapParserResource;
+import test.java.test.generators.LapParserResource;
 import eu.paulo.kart.parsers.LapParser;
 import eu.paulo.kart.entities.Race;
 import eu.paulo.kart.services.KartService;
@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class KartServiceTest {
+public class TestKartService {
 
     KartService kartService = new KartService();
     static KartRepository kartRepository = new KartRepository();
