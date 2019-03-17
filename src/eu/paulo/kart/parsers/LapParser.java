@@ -1,4 +1,4 @@
-package eu.paulo.kart.wrappers;
+package eu.paulo.kart.parsers;
 
 import eu.paulo.kart.entities.Lap;
 import eu.paulo.kart.entities.Pilot;

@@ -1,7 +1,5 @@
 package eu.paulo.kart.entities;
 
-import eu.paulo.kart.wrappers.LapParser;
-
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Objects;

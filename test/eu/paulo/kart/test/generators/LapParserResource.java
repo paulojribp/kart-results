@@ -1,14 +1,13 @@
 package eu.paulo.kart.test.generators;
 
-import eu.paulo.kart.entities.Lap;
-import eu.paulo.kart.wrappers.LapParser;
+import eu.paulo.kart.parsers.LapParser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LapParserGenerator {
+public class LapParserResource {
 
-    public static List<LapParser> getRaceWithLessLaps() {
+    public static List<LapParser> getRaceWhenMoreThanOnePilotHasMadeLessLaps() {
         List<LapParser> lapsParser = new ArrayList<>();
         lapsParser.add(new LapParser("23:49:08.277", "038", "R.BARRICHELLO", "1", "1:00.452","44,371"));
         lapsParser.add(new LapParser("23:49:08.277", "038", "R.BARRICHELLO", "2", "1:12.658","48,655"));
